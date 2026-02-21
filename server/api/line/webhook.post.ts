@@ -70,10 +70,6 @@ const handleFollow = async (replyToken: string) => {
 
 // ===== Main Webhook Handler =====
 export default defineEventHandler(async (event) => {
-    // ===== Debug: ตรวจสอบว่า request ถึง handler หรือไม่ =====
-    console.log('🚀 Webhook handler called!')
-    console.log('📌 Method:', event.method)
-    console.log('📌 URL:', getRequestURL(event).pathname)
 
     try {
         const body = await readBody<LineWebhookBody>(event)
@@ -105,8 +101,6 @@ export default defineEventHandler(async (event) => {
                 const userMessage = lineEvent.message.text
                 const userId = lineEvent.source.userId || 'unknown'
                 const replyToken = lineEvent.replyToken
-
-                console.log(`💬 Message from ${userId}: ${userMessage}`)
 
                 // Show loading animation
                 if (userId !== 'unknown') {
