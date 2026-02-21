@@ -19,11 +19,22 @@ enum Category {
   OTHER // อื่นๆ
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  name     String?
-  password String
+  id         Int     @id @default(autoincrement())
+  lineId     String? @unique // Line User ID จาก LIFF
+  email      String? @unique
+  name       String?
+  pictureUrl String? // รูปโปรไฟล์จาก Line
+  role       Role    @default(USER)
+  password   String? // สำหรับ admin login (Line user ไม่ต้องมี)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Product {
@@ -40,5 +51,3 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
-
